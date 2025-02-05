@@ -102,7 +102,7 @@ void handle_redirection(char **args) {
             args[i] = NULL;
             int fd = open(args[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
             if (fd < 0) {
-                perror("Failed to open file");
+                perror("failed to open file");
                 return;
             }
 
@@ -111,7 +111,7 @@ void handle_redirection(char **args) {
                 dup2(fd, STDOUT_FILENO);
                 close(fd);
                 execvp(args[0], args);
-                perror("Command execution failed");
+                perror("execution failed");
                 exit(1);
             } else {
                 close(fd);
@@ -124,7 +124,7 @@ void handle_redirection(char **args) {
             args[i] = NULL;
             int fd = open(args[i + 1], O_RDONLY);
             if (fd < 0) {
-                perror("Failed to open file");
+                perror("failed to open file");
                 return;
             }
 
@@ -133,7 +133,7 @@ void handle_redirection(char **args) {
                 dup2(fd, STDIN_FILENO);
                 close(fd);
                 execvp(args[0], args);
-                perror("Command execution failed");
+                perror("execution failed");
                 exit(1);
             } else {
                 close(fd);
@@ -168,7 +168,7 @@ void handle_pipes(char **args) {
         close(pipefd[0]);
         close(pipefd[1]);
         execvp(args[0], args);
-        perror("Command execution failed");
+        perror("execution failed");
         exit(1);
     }
 
@@ -178,7 +178,7 @@ void handle_pipes(char **args) {
         close(pipefd[0]);
         close(pipefd[1]);
         execvp(args[i + 1], &args[i + 1]);
-        perror("Command execution failed");
+        perror("execution failed");
         exit(1);
     }
 
